@@ -1,11 +1,35 @@
 import argparse
+import os
+
+
+
+def read(args):
+    
+    print('args: ', args.readFile, args.readFile[0].read())
+    # with open(args.name)
+
+def show(args):
+    return
+
+def delete(args):
+    return
+
+def copy(args):
+    return
+
+def rename(args):
+    return
+
+
 
 
 def main():
     parser = argparse.ArgumentParser(
         description='A text file manager with the following flags.')
-    parser.add_argument('-r', '--read', metavar='file_name', nargs=1,
-                        type=open, help='Opens and reads the specified text file.')
+    parser.add_argument('-r', '--read', dest='readFile',metavar='file_name', nargs=1,
+                        type=argparse.FileType('r', encoding='UTF-8'), 
+
+                        help='Opens and reads the specified text file.')
     parser.add_argument('-s', '--show', metavar='path', nargs=1,
                         help='Show all the text files on specified directory path. Type \'.\' for current directory')
     parser.add_argument('-d', '--delete', metavar='file_name', nargs=1,
@@ -17,7 +41,7 @@ def main():
     
     args = parser.parse_args()
     
-    if args.read != None:
+    if args.readFile != None:
         read(args)
     elif args.show != None:
         show(args)
