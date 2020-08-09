@@ -4,9 +4,10 @@ import os
 
 
 def read(args):
-    
-    print('args: ', args.readFile, args.readFile[0].read())
-    # with open(args.name)
+    filename = args.readFile[0]
+    with filename as f:
+        print('Reading from %s file'%(f.name))
+        print(f.read())
 
 def show(args):
     return
