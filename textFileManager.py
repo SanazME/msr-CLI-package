@@ -1,5 +1,6 @@
 import argparse
 import os
+from shutil import copyfile
 
 
 
@@ -22,7 +23,10 @@ def delete(args):
     print('Successfully deleted %s'%(path))
 
 def copy(args):
-    return
+    OrgFile = args.copy[0]
+    DesFile = args.copy[1]
+    copyfile(OrgFile, DesFile)
+    print('Successfully copied %s to %s'%(OrgFile, DesFile))
 
 def rename(args):
     return
