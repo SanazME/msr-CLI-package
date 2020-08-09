@@ -12,11 +12,9 @@ def read(args):
 def show(args):
     path = args.show[0]
     fileList = os.listdir(path)
+    print('%s files are found'%(len(fileList)))
     for file in fileList:
         print(file)
-
-
-    return
 
 def delete(args):
     return
