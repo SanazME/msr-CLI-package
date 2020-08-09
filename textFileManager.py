@@ -29,8 +29,10 @@ def copy(args):
     print('Successfully copied %s to %s'%(OrgFile, DesFile))
 
 def rename(args):
-    return
-
+    OrgFile = args.rename[0]
+    DesFile = args.rename[1]
+    os.rename(OrgFile,DesFile)
+    print('Successfully renamed %s to %s'%(OrgFile, DesFile))
 
 
 
