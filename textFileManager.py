@@ -10,6 +10,12 @@ def read(args):
         print(f.read())
 
 def show(args):
+    path = args.show[0]
+    fileList = os.listdir(path)
+    for file in fileList:
+        print(file)
+
+
     return
 
 def delete(args):
