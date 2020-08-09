@@ -17,7 +17,9 @@ def show(args):
         print(file)
 
 def delete(args):
-    return
+    path = args.delete[0]
+    os.remove(path)
+    print('Successfully deleted %s'%(path))
 
 def copy(args):
     return
