@@ -1,0 +1,1 @@
+A CLI that performs various measurements on remote web pages. We'll call this CLI msr. There will be several subcommands to msr, each of which might take some arguments.
