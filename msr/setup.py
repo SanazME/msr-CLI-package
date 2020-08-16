@@ -15,9 +15,15 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/SanazME/msr-CLI-package",
     packages=setuptools.find_packages(),
+    entry_points={
+        'console_scripts': [
+            'msr =  msr.msrCommands:main'
+        ]
+    },
     install_requires=REQUIREMENTS,
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
