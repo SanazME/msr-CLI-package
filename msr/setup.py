@@ -4,7 +4,7 @@ from msr._version import __version__
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-REQUIREMENTS = ['requests']
+REQUIREMENTS = ['requests', 'validators']
 
 setuptools.setup(
     name="msr", 
