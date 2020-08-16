@@ -1,4 +1,5 @@
 import setuptools
+from msr._version import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -6,8 +7,8 @@ with open("README.md", "r") as fh:
 REQUIREMENTS = ['requests']
 
 setuptools.setup(
-    name="msr-pkg", 
-    version="1.0.0",
+    name="msr", 
+    version=__version__,
     author="Sanaz Esf",
     author_email="sanaz.azh@gmail.com",
     description="A CLI package that performs various measurements on remote web page",

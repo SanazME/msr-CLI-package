@@ -1,9 +1,9 @@
 import argparse
 import os
+from ._version import __version__
 
 def version(args):
-    version = 'hard-coded version'
-    print(version)
+    print(args)
 
 
 def main():
@@ -11,10 +11,10 @@ def main():
         description='A CLI that performs various measurements on remote web pages with the following flags.'
     )
 
-    parser.add_argument('version', nargs=0, help='Print a semver version')
+    parser.add_argument('version', help='Print a semver version')
 
     args = parser.parse_args()
 
     if args.version != None:
-        version(arfs)
+        version(__version__)
 
