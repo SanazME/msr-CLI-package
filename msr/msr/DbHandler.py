@@ -27,13 +27,13 @@ class DbHandler:
             ADDRESS     VARCHAR(2083) PRIMARY KEY NOT NULL); ''')
             print('Table is created successfully!')
 
-        return (connectdb, cursor)
+        return DbHandler(connectdb, cursor)
 
     
-    def __init__(self):
+    def __init__(self, connectdb, cursor):
         super().__init__()
-        (self.connectdb, self.cursor) = DbHandler.createDB()
-       
+        self.connectdb = connectdb
+        self.cursor = cursor
 
 
     def insert(self, url):

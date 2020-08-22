@@ -20,7 +20,7 @@ def register(args):
         url = args.register[0]
 
         # insert to database
-        db = DbHandler()
+        db = DbHandler.createDB()
         db.insert(url)
         return
 
