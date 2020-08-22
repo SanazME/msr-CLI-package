@@ -6,29 +6,38 @@ class DbHandler:
     A class to hadle insteratinon with sqlite database. It includes methods
     for insertion and retrieval of data from the database
     """
-    
-    def __init__(self):
-        super().__init__()
-        # create or connect to existing database
-        self.connectdb = sqlite3.connect('urlLinks.db')
-        self.cursor = self.connectdb.cursor()
+
+    @staticmethod
+    def createDB():
+         # create or connect to existing database
+        connectdb = sqlite3.connect('urlLinks.db')
+        cursor = connectdb.cursor()
 
         # check if the table exists
         tableName = ('urls')
-        self.cursor.execute(
+        cursor.execute(
             ''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name=?''', (tableName,))
 
-        if self.cursor.fetchone()[0] == 1:
+        if cursor.fetchone()[0] == 1:
             print('Table already exists')
         else:
             # only need to execute once???
-            self.cursor.execute(''' CREATE TABLE urls
+            cursor.execute(''' CREATE TABLE urls
             (
             ADDRESS     VARCHAR(2083) PRIMARY KEY NOT NULL); ''')
             print('Table is created successfully!')
 
+        return (connectdb, cursor)
+
+    
+    def __init__(self):
+        super().__init__()
+        (self.connectdb, self.cursor) = DbHandler.createDB()
+       
+
 
     def insert(self, url):
+
         """ insert a url"""
         try:
             self.cursor.execute('INSERT INTO urls VALUES (?)', (url,))
