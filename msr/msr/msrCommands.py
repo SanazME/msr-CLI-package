@@ -1,6 +1,7 @@
 import argparse
 import validators
 import sys
+import pprint
 from ._version import __version__
 from .DbHandler import DbHandler
 
@@ -27,6 +28,19 @@ def register(args):
     print('wrong url')
     return sys.exit(1)
 
+def measure(args):
+    # get a list if urls from db
+    db = DbHandler.createDB()
+    address_list = db.getUrlList()
+
+    urlDic = {}
+    for address in address_list:
+        url = address[0]
+        urlDic[url] = db.getRequestSize(url)
+
+    pprint.ppritn(urlDic)
+
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -36,6 +50,7 @@ def main():
     parser.add_argument('--version', nargs='*', help='Print a semver version')
     parser.add_argument('--register', nargs=1, metavar='URL',
                         help='Take a URL and if the URL is valid, add it to an internal, persistent registry')
+    parser.add_argument('--measure', nargs='*', help='Pretty print table of all of the URLs in the registry, along with the size (in bytes) of the body received by making a GET request to that URL.')
 
     args = parser.parse_args()
 
@@ -43,3 +58,5 @@ def main():
         version(__version__)
     elif args.register != None:
         register(args)
+    elif args.measure != None:
+        measure(args)

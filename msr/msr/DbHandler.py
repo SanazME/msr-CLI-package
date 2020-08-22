@@ -1,4 +1,5 @@
 import sqlite3
+import requests
 
 
 class DbHandler:
@@ -9,7 +10,7 @@ class DbHandler:
 
     @staticmethod
     def createDB():
-         # create or connect to existing database
+        # create or connect to existing database
         connectdb = sqlite3.connect('urlLinks.db')
         cursor = connectdb.cursor()
 
@@ -29,15 +30,12 @@ class DbHandler:
 
         return DbHandler(connectdb, cursor)
 
-    
     def __init__(self, connectdb, cursor):
         super().__init__()
         self.connectdb = connectdb
         self.cursor = cursor
 
-
     def insert(self, url):
-
         """ insert a url"""
         try:
             self.cursor.execute('INSERT INTO urls VALUES (?)', (url,))
@@ -54,3 +52,20 @@ class DbHandler:
                 # close the db connection
                 self.connectdb.close()
                 print('Connection to db is closed.')
+
+    def getUrlList(self):
+        urlList = []
+        try:
+            for address in self.cursor.execute('SELECT * FROM urls'):
+                urlList.append(address)
+    
+        except sqlite3.Error as error:
+            print("Failed to get a list of urls from databaes: ", error)
+        finally:
+            return urlList
+
+    def getRequestSize(self, url):
+        res = requests.get(url)
+        return len(res.content)
+
+
