@@ -1,7 +1,7 @@
 import argparse
 import validators
 import sys
-import pprint
+from tabulate import tabulate
 from ._version import __version__
 from .DbHandler import DbHandler
 
@@ -33,12 +33,15 @@ def measure(args):
     db = DbHandler.createDB()
     address_list = db.getUrlList()
 
-    urlDic = {}
+    urlByteSize = []
     for address in address_list:
         url = address[0]
-        urlDic[url] = db.getRequestSize(url)
+        urlByteSize.append((url, db.getRequestSize(url)))
 
-    pprint.ppritn(urlDic)
+    print(urlByteSize)
+    headers = ['URL', 'Size(bytes)']
+    print(tabulate(urlByteSize, headers, tablefmt='fancy_grid'))
+
 
 
 
