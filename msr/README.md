@@ -45,3 +45,6 @@ Commands
     - first create built distribution (`.whl`) and source files (`tar.gz`) files (optional for locall pip testing I think!): `python setup.py sdist bdist_wheel`
     - then run pip : `pip install -e .`
     - now you can test different msr commands: `msr -h`, `msr --version`, `msr --register 'https://examples.com`
+    - to check table content in sqlite: 
+        - `sqlite3 urlLinks.db`
+        - `SELECT * FROM urls;`
