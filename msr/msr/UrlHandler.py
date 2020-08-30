@@ -1,4 +1,6 @@
 import requests
+import re
+import collections
 
 
 class UrlHandler:
@@ -15,7 +17,6 @@ class UrlHandler:
         byteSizeList = []
 
         try:
-
             for url in self.urlList:
                 print('url is :', url)
                 address = url[0]
@@ -29,4 +30,31 @@ class UrlHandler:
             raise SystemExit(e)
 
 
-    # def getAvgPageLoadTime(self, url):
+    def getDomainName(self, url):
+        domainPattern = re.compile(
+            '(\w+)://(?P<domain>[\w\-\.]+)(:(\d+))?(/(.+))?')
+        domainName = domainPattern.search(url[0]).group('domain')
+        return domainName
+
+    def getDomains(self):
+        # return a dictionary with keys of domains and values of list of urls related to that doamin
+        domainDic = collections.defaultdict(list)
+        
+        for url in self.urlList: 
+            domainDic[self.getDomainName(url)].append(url)
+
+        return domainDic
+
+    def getAvgLoadTime(self):
+        domainsDic = self.getDomains()
+        domainLoadTimeDic = []
+        # domainLoadTimeDic = collections.defaultdict(list)
+
+        for domain in domainsDic.keys():
+            urls = domainsDic[domain]
+            count = len(urls)
+            loadTimes = list(map(lambda url: requests.get(url[0]).elapsed.total_seconds(), urls))
+            avgLoadTime = sum(loadTimes)/count
+            domainLoadTimeDic.append((domain, avgLoadTime))
+
+        return domainLoadTimeDic

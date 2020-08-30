@@ -43,6 +43,11 @@ def measure(args):
 
 def race(args):
     db = DbHandler.createDB()
+    address_list = db.getUrlList()
+
+    domainList = UrlHandler(address_list).getAvgLoadTime()
+    headers = ['Domain', 'Average Load Time(s)']
+    print(tabulate(domainList, headers, tablefmt='fancy_grid'))
     
 
 
@@ -57,6 +62,7 @@ def main():
     parser.add_argument('--register', nargs=1, metavar='URL',
                         help='Take a URL and if the URL is valid, add it to an internal, persistent registry')
     parser.add_argument('--measure', nargs='*', help='Pretty print table of all of the URLs in the registry, along with the size (in bytes) of the body received by making a GET request to that URL.')
+    parser.add_argument('--race', nargs='*', help='Pretty print table of all the domains found in the URLs in the registry, along with the average page load time for the URLs of that domain')
 
     args = parser.parse_args()
 
@@ -67,4 +73,4 @@ def main():
     elif args.measure != None:
         measure(args)
     elif args.race != None:
-        race(arg)
+        race(args)
