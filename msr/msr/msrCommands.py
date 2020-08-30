@@ -4,6 +4,7 @@ import sys
 from tabulate import tabulate
 from ._version import __version__
 from .DbHandler import DbHandler
+from .UrlHandler import UrlHandler
 
 # install package locally:
 # python setup.py sdist bdist_wheel
@@ -33,14 +34,16 @@ def measure(args):
     db = DbHandler.createDB()
     address_list = db.getUrlList()
 
-    urlByteSize = []
-    for address in address_list:
-        url = address[0]
-        urlByteSize.append((url, db.getRequestSize(url)))
+    urlByteSize = UrlHandler(address_list).getRequestSize()
 
     print(urlByteSize)
     headers = ['URL', 'Size(bytes)']
     print(tabulate(urlByteSize, headers, tablefmt='fancy_grid'))
+
+
+def race(args):
+    db = DbHandler.createDB()
+    
 
 
 
@@ -63,3 +66,5 @@ def main():
         register(args)
     elif args.measure != None:
         measure(args)
+    elif args.race != None:
+        race(arg)

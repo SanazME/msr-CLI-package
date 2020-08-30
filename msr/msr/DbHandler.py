@@ -1,10 +1,10 @@
 import sqlite3
-import requests
+
 
 
 class DbHandler:
     """
-    A class to hadle insteratinon with sqlite database. It includes methods
+    A class to handle interaction with sqlite database. It includes methods
     for insertion and retrieval of data from the database
     """
 
@@ -63,9 +63,3 @@ class DbHandler:
             print("Failed to get a list of urls from databaes: ", error)
         finally:
             return urlList
-
-    def getRequestSize(self, url):
-        res = requests.get(url)
-        return len(res.content)
-
-
