@@ -1,7 +1,7 @@
 msr
 ====
 
-A CLI that performs various measurements on remote web pages. We'll call this CLI msr. There will be several subcommands to msr, each of which might take some arguments.
+A CLI that performs various measurements on remote web pages. There will be several subcommands to msr, each of which might take some arguments.
 
 The code is Python 3 compatible.
 
